@@ -5,8 +5,16 @@
       "PackagePath": "staticwebassets\\HotelBookingBlazor.bundle.scp.css"
     },
     {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\about.html",
+      "PackagePath": "staticwebassets\\about.html"
+    },
+    {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\booking.html",
+      "PackagePath": "staticwebassets\\booking.html"
     },
     {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\bootstrap\\bootstrap.min.css",
@@ -15,6 +23,10 @@
     {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\contact.html",
+      "PackagePath": "staticwebassets\\contact.html"
     },
     {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\css\\bootstrap.min.css",
@@ -211,6 +223,10 @@
     {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\lib\\wow\\wow.min.js",
       "PackagePath": "staticwebassets\\lib\\wow\\wow.min.js"
+    },
+    {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\room.html",
+      "PackagePath": "staticwebassets\\room.html"
     },
     {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\scss\\bootstrap.scss",
@@ -539,6 +555,18 @@
     {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\scss\\bootstrap\\scss\\vendor\\_rfs.scss",
       "PackagePath": "staticwebassets\\scss\\bootstrap\\scss\\vendor\\_rfs.scss"
+    },
+    {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\service.html",
+      "PackagePath": "staticwebassets\\service.html"
+    },
+    {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\team.html",
+      "PackagePath": "staticwebassets\\team.html"
+    },
+    {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\testimonial.html",
+      "PackagePath": "staticwebassets\\testimonial.html"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.HotelBookingBlazor.Microsoft.AspNetCore.StaticWebAssets.props",

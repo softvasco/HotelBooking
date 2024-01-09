@@ -135,3 +135,4 @@ D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\refint\HotelB
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.pdb
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.genruntimeconfig.cache
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\ref\HotelBookingBlazor.dll
+D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.sourcelink.json
