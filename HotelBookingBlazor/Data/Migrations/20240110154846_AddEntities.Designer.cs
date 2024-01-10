@@ -4,6 +4,7 @@ using HotelBookingBlazor.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelBookingBlazor.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240110154846_AddEntities")]
+    partial class AddEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,15 +211,10 @@ namespace HotelBookingBlazor.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(25)");
 
-                    b.Property<short>("RoomTypeId")
-                        .HasColumnType("smallint");
-
                     b.Property<short>("RootTypeId")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomTypeId");
 
                     b.ToTable("Rooms");
                 });
@@ -443,17 +441,6 @@ namespace HotelBookingBlazor.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("HotelBookingBlazor.Data.Entites.Room", b =>
-                {
-                    b.HasOne("HotelBookingBlazor.Data.Entites.RoomType", "RoomType")
-                        .WithMany("Rooms")
-                        .HasForeignKey("RoomTypeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("RoomType");
-                });
-
             modelBuilder.Entity("HotelBookingBlazor.Data.Entites.RoomType", b =>
                 {
                     b.HasOne("HotelBookingBlazor.Data.ApplicationUser", "AddedByUser")
@@ -538,8 +525,6 @@ namespace HotelBookingBlazor.Migrations
             modelBuilder.Entity("HotelBookingBlazor.Data.Entites.RoomType", b =>
                 {
                     b.Navigation("Amenities");
-
-                    b.Navigation("Rooms");
                 });
 #pragma warning restore 612, 618
         }
