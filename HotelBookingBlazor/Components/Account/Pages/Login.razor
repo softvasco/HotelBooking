@@ -4,24 +4,25 @@
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
 @using HotelBookingBlazor.Data
+@using System.Security.Claims
 
 @inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
 <PageTitle>Log in</PageTitle>
 
-<h1>Log in</h1>
-<div class="row">
+<div class="row d-flex justify-content-center">
     <div class="col-md-4">
         <section>
+            <h1>Log in</h1>
             <StatusMessage Message="@errorMessage" />
-            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+            <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login" Enhance="true">
                 <DataAnnotationsValidator />
                 <h2>Use a local account to log in.</h2>
                 <hr />
-                <ValidationSummary class="text-danger" role="alert" />
                 <div class="form-floating mb-3">
                     <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                     <label for="email" class="form-label">Email</label>
@@ -41,25 +42,12 @@
                 <div>
                     <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                 </div>
-                <div>
-                    <p>
-                        <a href="Account/ForgotPassword">Forgot your password?</a>
-                    </p>
+                <div class="mt-3">
                     <p>
                         <a href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</a>
                     </p>
-                    <p>
-                        <a href="Account/ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
                 </div>
             </EditForm>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            <ExternalLoginPicker />
         </section>
     </div>
 </div>
@@ -87,29 +75,34 @@
 
     public async Task LoginUser()
     {
-        // This doesn't count login failures towards account lockout
-        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-        if (result.Succeeded)
+        var user = await UserManager.FindByEmailAsync(Input.Email);
+
+
+        if (user is null)
         {
-            Logger.LogInformation("User logged in.");
-            RedirectManager.RedirectTo(ReturnUrl);
+            errorMessage = "Error: User does not exists.";
+            return;
         }
-        else if (result.RequiresTwoFactor)
+
+        var result = await SignInManager.CheckPasswordSignInAsync(user, Input.Password, lockoutOnFailure: false);
+        if (!result.Succeeded)
         {
-            RedirectManager.RedirectTo(
-                "Account/LoginWith2fa",
-                new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
+            errorMessage = "Error: Incorrect password.";
+            return;
         }
-        else if (result.IsLockedOut)
-        {
-            Logger.LogWarning("User account locked out.");
-            RedirectManager.RedirectTo("Account/Lockout");
-        }
-        else
-        {
-            errorMessage = "Error: Invalid login attempt.";
-        }
+
+        Claim[] additionalClaims = [
+            new Claim(AppContants.CustomClaimTypes.FullName, user.FullName),
+            new Claim(AppContants.CustomClaimTypes.RoleName, user.RoleName),
+            new Claim(AppContants.CustomClaimTypes.Image, user.Image ?? ""),
+            new Claim(AppContants.CustomClaimTypes.Email, user.Email ?? user.UserName!),
+            new Claim(AppContants.CustomClaimTypes.Designation, user.Designation ?? ""),
+        ];
+
+        await SignInManager.SignInWithClaimsAsync(user, Input.RememberMe, additionalClaims);
+
+        Logger.LogInformation("User logged in.");
+        RedirectManager.RedirectTo(ReturnUrl);
     }
 
     private sealed class InputModel
