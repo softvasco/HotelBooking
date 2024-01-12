@@ -18,10 +18,10 @@
 <PageTitle>Register</PageTitle>
 
 <div class="row d-flex justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <h1>Register</h1>
         <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register" Enhance="true">
             <DataAnnotationsValidator />
             <h2>Create a new account.</h2>
             <hr />
@@ -41,29 +41,34 @@
                         <ValidationMessage For="() => Input.LastName" class="text-danger" />
                     </div>
                 </div>
-            </div>
-
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
-            </div>
-
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.ContactNumber" class="form-control" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
-            </div>
-
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+                <div class="col-sm-6">
+                    <div class="form-floating mb-3">
+                        <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label for="email">Email</label>
+                        <ValidationMessage For="() => Input.Email" class="text-danger" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-floating mb-3">
+                        <InputText @bind-Value="Input.ContactNumber" class="form-control" aria-required="true" placeholder="contact number" />
+                        <label for="contactNumber">Contact Number</label>
+                        <ValidationMessage For="() => Input.ContactNumber" class="text-danger" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-floating mb-3">
+                        <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label for="password">Password</label>
+                        <ValidationMessage For="() => Input.Password" class="text-danger" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-floating mb-3">
+                        <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <label for="confirm-password">Confirm Password</label>
+                        <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+                    </div>
+                </div>
             </div>
             <div>
                 <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
@@ -92,6 +97,11 @@
     {
         var user = CreateUser();
 
+        user.FirstName = Input.FirstName;
+        user.LastName = Input.LastName;
+        user.ContactNumber = Input.ContactNumber;
+        user.RoleName = RoleType.Guest.ToString();
+
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -103,26 +113,17 @@
             return;
         }
 
-        Logger.LogInformation("User created a new account with password.");
+        result = await UserManager.AddToRoleAsync(user, user.RoleName);
 
-        var userId = await UserManager.GetUserIdAsync(user);
-        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-            NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
-            new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
-
-        await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
-
-        if (UserManager.Options.SignIn.RequireConfirmedAccount)
+        if (!result.Succeeded)
         {
-            RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+            identityErrors = result.Errors;
+            return;
         }
 
-        await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
+        Logger.LogInformation("User created a new account with password.");
+
+        RedirectManager.RedirectTo("Account/Login");
     }
 
     private ApplicationUser CreateUser()
@@ -149,10 +150,10 @@
 
     private sealed class InputModel
     {
-        [Required, MaxLength(8), RegularExpression(@"^[a-zA-C]+$")]
-        public string FirstName { get; set; }
+        [Required, MaxLength(15), RegularExpression(@"^[a-zA-Z]+$")]
+        public string FirstName { get; set; } = "";
 
-        [MaxLength(8), RegularExpression(@"^[a-zA-C]+$")]
+        [MaxLength(8), RegularExpression(@"^[a-zA-Z]+$")]
         public string LastName { get; set; }
 
         [Required]
@@ -160,8 +161,8 @@
         [Display(Name = "Email")]
         public string Email { get; set; } = "";
 
-        [Required, MaxLength(15), RegularExpression(@"[^0-9\+\(\)\s]")]
-        public string ContactNumber { get; set; }
+        [Required, MaxLength(15), RegularExpression(@"^[0-9\+\(\)\s]+$")]
+        public string ContactNumber { get; set; } = "";
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
