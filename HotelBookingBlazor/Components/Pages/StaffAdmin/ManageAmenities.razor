@@ -54,41 +54,43 @@
             </EditForm>
         </div>
         <div class="col-sm-9">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Icon</th>
-                        <th>Name</th>
-                        <th>Icon Css Class</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (_amenities.Length == 0)
-                    {
+            <div class="" style="max-height: 75vh; overflow-y:scroll;">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <th colspan="5">
-                                <h4 class="text-danger">No amenities yet. Create one from the left from</h4>
-                            </th>
+                            <th>Id</th>
+                            <th>Icon</th>
+                            <th>Name</th>
+                            <th>Icon Css Class</th>
+                            <th></th>
                         </tr>
-                    }
-                    @foreach (var a in _amenities)
-                    {
-                        <tr>
-                            <td>@a.Id</td>
-                            <td>
-                                <i class="@a.Icon text-primary"></i>
-                            </td>
-                            <td>@a.Name</td>
-                            <td>@a.Icon</td>
-                            <td>
-                                <a href="staff-admin/manage-amenities?id=@a.Id" class="btn btn-sm btn-primary">Edit</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @if (_amenities.Length == 0)
+                        {
+                            <tr>
+                                <th colspan="5">
+                                    <h4 class="text-danger">No amenities yet. Create one from the left from</h4>
+                                </th>
+                            </tr>
+                        }
+                        @foreach (var a in _amenities)
+                        {
+                            <tr>
+                                <td>@a.Id</td>
+                                <td>
+                                    <i class="@a.Icon text-primary"></i>
+                                </td>
+                                <td>@a.Name</td>
+                                <td>@a.Icon</td>
+                                <td>
+                                    <a href="staff-admin/manage-amenities?id=@a.Id" class="btn btn-sm btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
