@@ -18,7 +18,20 @@ public class AmenitiesService : IAmenitiesService
     {
         using var context = _contextFactory.CreateDbContext();
 
-        return await context.Amenities.ToArrayAsync();
+        return await context.Amenities.Where(a => !a.IsDeleted).ToArrayAsync();
+    }
+
+    public async Task<MethodResult<bool>> DeleteAmenityAsync(int id)
+    {
+        using var context = _contextFactory.CreateDbContext();
+        var amenity = await context.Amenities.AsTracking().FirstOrDefaultAsync(a => a.Id == id);
+        if (amenity is not null)
+        {
+            amenity.IsDeleted = true;
+            await context.SaveChangesAsync();
+            return true;
+        }
+        return false;
     }
 
     public async Task<MethodResult<Amenity>> SaveAmenityAsync(Amenity amenity)
@@ -55,6 +68,7 @@ public class AmenitiesService : IAmenitiesService
         await context.SaveChangesAsync();
         return amenity;
     }
+
 }
 
 public class RoomService

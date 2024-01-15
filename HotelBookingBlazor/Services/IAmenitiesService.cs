@@ -7,5 +7,6 @@ namespace HotelBookingBlazor.Services
     {
         Task<Amenity[]> GetAmenitiesAsync();
         Task<MethodResult<Amenity>> SaveAmenityAsync(Amenity amenity);
+        Task<MethodResult<bool>> DeleteAmenityAsync(int id);
     }
 }
