@@ -18,6 +18,8 @@
         <div class="col-sm-3">
             <EditForm Model="Model" Enhance=true FormName="amenity" OnValidSubmit="SaveAmenityAsync">
                 <DataAnnotationsValidator />
+                <input type="hidden" value="@Model.Id" name="Model.Id" />
+
                 @if (!string.IsNullOrWhiteSpace(_error))
                 {
                     <div class="mb-3 text-danger">
@@ -80,6 +82,9 @@
                             </td>
                             <td>@a.Name</td>
                             <td>@a.Icon</td>
+                            <td>
+                                <a href="staff-admin/manage-amenities?id=@a.Id" class="btn btn-sm btn-primary">Edit</a>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -89,9 +94,14 @@
 </div>
 
 @code {
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
 
     [SupplyParameterFromForm]
     private Amenity Model { get; set; } = new();
+
+    [SupplyParameterFromQuery(Name = "id")]
+    private int AmenityId { get; set; }
 
     private bool _isSaving;
     private string? _error;
@@ -100,18 +110,39 @@
     protected override async Task OnInitializedAsync()
     {
         _amenities = await AmenitiesService.GetAmenitiesAsync();
+        if (AmenityId > 0)
+        {
+            if (HttpMethods.IsGet(HttpContext.Request.Method))
+            {
+                var amenity = _amenities.FirstOrDefault(a => a.Id == AmenityId);
+                if (amenity is not null)
+                {
+                    Model = amenity;
+                }
+            }
+
+        }
     }
 
     private async Task SaveAmenityAsync()
     {
         _error = null;
         _isSaving = true;
-        await Task.Delay(3000);
-        MethodResult<Amenity> result = await AmenitiesService.SaveAmenityAsync(Model);
+
+        MethodResult<Amenity> result = await AmenitiesService.SaveAmenityAsync(Model.Clone());
         if (result.IsSuccess)
         {
+            if (Model.Id == 0)
+            {
+                _amenities = [.. _amenities, result.Data];
+            }
+            else
+            {
+                var amenity = _amenities.First(a => a.Id == Model.Id);
+                amenity.Name = result.Data.Name;
+                amenity.Icon = result.Data.Icon;
+            }
             Model = new();
-            _amenities = [.. _amenities, result.Data];
         }
         else
         {
