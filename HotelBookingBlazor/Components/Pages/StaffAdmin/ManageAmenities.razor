@@ -1,0 +1,69 @@
+﻿@page "/staff-admin/manage-amenities"
+@using HotelBookingBlazor.Data.Entites
+
+@attribute [Authorize(Roles = "Staff,Admin")]
+
+@inject IAmenitiesService AmenitiesService
+
+<div class="container">
+
+    <h1>Manage Amenities</h1>
+    <hr />
+
+    <div class="row d-flex">
+        <div class="justify-content-end">
+            <div class="col-sm-3">
+                <EditForm Model="Model" Enhance=true FormName="amenity">
+                    <DataAnnotationsValidator>
+
+                    </DataAnnotationsValidator>
+
+                    <div class="mn-3">
+                        <label class="form-label">Name: </label>
+                        <InputText @bind-Value="Model.Name" class="form-control" placeholder="Amenity name" />
+                        <ValidationMessage For="()=> Model.Name" class="text-danger" />
+                    </div>
+                    <div class="mn-3">
+                        <label class="form-label">Icon: </label>
+                        <InputText @bind-Value="Model.Icon" class="form-control" placeholder="Amenity icon" />
+                        <ValidationMessage For="()=> Model.Icon" class="text-danger" />
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-sn btn-success">Save</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Icon</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in _amenities)
+            {
+                <tr>
+                    <td>@a.Id</td>
+                    <td>@a.Name</td>
+                    <td>@a.Icon</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@code {
+
+    private Amenity Model { get; set; } = new();
+
+    private Amenity[] _amenities = [];
+    protected override async Task OnInitializedAsync()
+    {
+        _amenities = await AmenitiesService.GetAmenitiesAsync();
+    }
+}

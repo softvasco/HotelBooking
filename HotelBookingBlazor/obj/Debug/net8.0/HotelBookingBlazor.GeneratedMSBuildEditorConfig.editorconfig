@@ -210,6 +210,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXJ2aWNlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projetos/HotelBookingBlazor/HotelBookingBlazor/Components/Pages/StaffAdmin/ManageAmenities.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdGFmZkFkbWluXE1hbmFnZUFtZW5pdGllcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projetos/HotelBookingBlazor/HotelBookingBlazor/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
