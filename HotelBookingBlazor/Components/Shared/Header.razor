@@ -58,6 +58,7 @@
                         <AuthorizeView>
                             <Authorized>
                                 <div class="nav-item dropdown">
+                                    @* <label>@(string.Join(Environment.NewLine, @context.User.Claims.Select(c => $"{c.Type}={c.Value}")))</label> *@
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@context.User.FindFirst(AppContants.CustomClaimTypes.FullName)?.Value</a>
                                     <div class="dropdown-menu rounded-0 m-0">
 

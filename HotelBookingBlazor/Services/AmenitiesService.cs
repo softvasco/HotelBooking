@@ -40,7 +40,7 @@ public class AmenitiesService : IAmenitiesService
         if (amenity.Id == 0)
         {
             //Create a new Amenity
-            if(await context.Amenities.AnyAsync(a => a.Name == amenity.Name))
+            if (await context.Amenities.AnyAsync(a => a.Name == amenity.Name && !a.IsDeleted))
             {
                 //return MethodResult<Amenity>.Failure("Amenity exists already");
                 return "Amenity with the same name already exists";
@@ -51,7 +51,7 @@ public class AmenitiesService : IAmenitiesService
         else
         {
             //Update existing Amenity
-            if (await context.Amenities.AnyAsync(a => a.Name == amenity.Name && a.Id != amenity.Id))
+            if (await context.Amenities.AnyAsync(a => a.Name == amenity.Name && a.Id != amenity.Id && !a.IsDeleted))
             {
                 return "Amenity with the same name already exists";
             }
