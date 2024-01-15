@@ -7,7 +7,7 @@
     <div class="row gx-0">
         <div class="col-lg-3 bg-dark d-none d-lg-block">
             <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                <h1 class="m-0 text-primary text-uppercase">Hotel Vasco</h1>
+                <h1 class="m-0 text-primary text-uppercase">Blazing Hotel</h1>
             </a>
         </div>
         <div class="col-lg-9">
@@ -34,7 +34,7 @@
             </div>
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
                 <NavLink Match="NavLinkMatch.All" href="/" class="navbar-brand d-block d-lg-none">
-                    <h1 class="m-0 text-primary text-uppercase">Hotel Vasco</h1>
+                    <h1 class="m-0 text-primary text-uppercase">Blazing Hotel</h1>
                 </NavLink>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -54,34 +54,55 @@
                             </div>
                         </div>
                         <NavLink href="contact" class="nav-item nav-link">Contact</NavLink>
-                        <AuthorizeView>
-                            <Authorized>
-                                <NavLink href="contact" class="nav-item nav-link">@context.User.FindFirst(AppContants.CustomClaimTypes.FullName)?.Value</NavLink>
-                                </Authorized>
-                            </AuthorizeView>
-                        </div>
-                        <AuthorizeView>
-                            <Authorized>
-                                <form action="Account/Logout" method="post">
-                                    <AntiforgeryToken />
-                                    <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                                    <button type="submit" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">
-                                        Logout<i class="fa fa-arrow-right ms-3"></i>
-                                    </button>
-                                </form>
-                            </Authorized>
-                            <NotAuthorized>
-                                <a href="account/login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"><i class="fa fa-arrow-left me-3"></i>Login</a>
-                            </NotAuthorized>
-                        </AuthorizeView>
 
+                        <AuthorizeView>
+                            <Authorized>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">@context.User.FindFirst(AppContants.CustomClaimTypes.FullName)?.Value</a>
+                                    <div class="dropdown-menu rounded-0 m-0">
+
+                                        <NavLink href="booking" class="dropdown-item">My Profile</NavLink>
+
+                                        <AuthorizeView Roles="@RoleType.Guest.ToString()" Context="guestContext">
+                                            <NavLink href="booking" class="dropdown-item">My Bookings</NavLink>
+                                        </AuthorizeView>
+
+                                        <AuthorizeView Roles="Admin" Context="adminContext">
+                                            <NavLink href="booking" class="dropdown-item">Manage Staff</NavLink>
+                                        </AuthorizeView>
+
+                                        <AuthorizeView Roles="Staff,Admin" Context="staffAdminContext">
+                                            <NavLink href="booking" class="dropdown-item">Manage Bookings</NavLink>
+                                            <NavLink href="booking" class="dropdown-item">Manage Rooms</NavLink>
+                                            <NavLink href="booking" class="dropdown-item">Manage Amenities</NavLink>
+                                        </AuthorizeView>
+                                    </div>
+                                </div>
+                            </Authorized>
+                        </AuthorizeView>
                     </div>
-                </nav>
-            </div>
+                    <AuthorizeView>
+                        <Authorized>
+                            <form action="Account/Logout" method="post">
+                                <AntiforgeryToken />
+                                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                                <button type="submit" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">
+                                    Logout<i class="fa fa-arrow-right ms-3"></i>
+                                </button>
+                            </form>
+                        </Authorized>
+                        <NotAuthorized>
+                            <a href="account/login" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block"><i class="fa fa-arrow-left me-3"></i>Login</a>
+                        </NotAuthorized>
+                    </AuthorizeView>
+
+                </div>
+            </nav>
         </div>
     </div>
+</div>
 
-    @code {
+@code {
     private string? currentUrl;
 
     protected override void OnInitialized()
