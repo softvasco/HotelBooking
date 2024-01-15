@@ -9,6 +9,9 @@ public class RoomType
     public short Id { get; set; }
 
     [Required, MaxLength(100), Unicode(false)]
+    public string Name { get; set; }
+
+    [Required, MaxLength(100), Unicode(false)]
     public string Image { get; set; }
 
     [Required, Range(1, double.MaxValue)]

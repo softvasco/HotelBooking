@@ -70,8 +70,3 @@ public class AmenitiesService : IAmenitiesService
     }
 
 }
-
-public class RoomService
-{
-
-}
