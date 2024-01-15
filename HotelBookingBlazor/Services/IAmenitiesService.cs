@@ -1,10 +1,11 @@
 ﻿using HotelBookingBlazor.Data.Entites;
+using HotelBookingBlazor.Models;
 
 namespace HotelBookingBlazor.Services
 {
     public interface IAmenitiesService
     {
         Task<Amenity[]> GetAmenitiesAsync();
-        Task<Amenity> SaveAmenityAsync(Amenity amenity);
+        Task<MethodResult<Amenity>> SaveAmenityAsync(Amenity amenity);
     }
 }
