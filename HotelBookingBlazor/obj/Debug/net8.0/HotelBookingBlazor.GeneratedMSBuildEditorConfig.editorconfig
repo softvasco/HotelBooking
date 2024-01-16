@@ -214,6 +214,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdGFmZkFkbWluXE1hbmFnZUFtZW5pdGllcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projetos/HotelBookingBlazor/HotelBookingBlazor/Components/Pages/StaffAdmin/ManageRoomTypes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdGFmZkFkbWluXE1hbmFnZVJvb21UeXBlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projetos/HotelBookingBlazor/HotelBookingBlazor/Components/Pages/StaffAdmin/SaveRoomType.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdGFmZkFkbWluXFNhdmVSb29tVHlwZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projetos/HotelBookingBlazor/HotelBookingBlazor/Components/Pages/StaffAdmin/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdGFmZkFkbWluXF9JbXBvcnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projetos/HotelBookingBlazor/HotelBookingBlazor/Components/Pages/Weather.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
