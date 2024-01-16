@@ -3,6 +3,7 @@
 
 @rendermode @(new InteractiveServerRenderMode(prerender:false))
 
+@inject IWebHostEnvironment WebHostEnvironment
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
 
@@ -68,17 +69,20 @@
                     </div>
                 }
             </div>
+
             <div class="col-sm-6">
                 @if (!string.IsNullOrWhiteSpace(_errorMessage))
                 {
                     <p class="text-danger">@_errorMessage</p>
                 }
             </div>
+
             <div class="col-sm-6">
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
+
         </div>
     </EditForm>
 </div>
@@ -91,6 +95,7 @@
     private string? _errorMessage = null;
 
     private string? _imageUrl = null;
+    private IBrowserFile? _image;
 
     protected override async Task OnInitializedAsync()
     {
@@ -109,11 +114,42 @@
         var extension = Path.GetExtension(e.File.Name)[1..];
 
         _imageUrl = $"data:image/{extension};base64,{base64ImageData}";
+        _image = e.File;
+    }
+
+    private async Task<string?> SaveImageAsync()
+    {
+        var extension = Path.GetExtension(_image.Name);
+        var imageName = $"room-type-img-{Guid.NewGuid()}{extension}";
+
+        var folderPath = Path.Combine(WebHostEnvironment.WebRootPath, "images", "room-types");
+        Directory.CreateDirectory(folderPath);
+
+        var fullFilePath = Path.Combine(folderPath, imageName);
+
+        try
+        {
+            await using FileStream fs = new(fullFilePath, FileMode.Create);
+            using var imageStream = _image.OpenReadStream();
+            await imageStream.CopyToAsync(fs);
+            return $"/image/room-types/{imageName}";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = $"Error in saving image. {ex.Message}";
+            return null;
+        }
     }
 
     private async Task SaveRoomTypeAsync()
     {
         _errorMessage = null;
+
+        if (_image is null)
+        {
+            _errorMessage = $"Image is required.";
+            return;
+        }
 
         Model.Amenities = _amenities.Where(a => a.IsChecked)
                                     .Select(a => new RoomTypeCreateModel.RoomTypeAmenityCreateModel(a.AmenityId, a.Unit))
@@ -132,7 +168,11 @@
 
         try
         {
-            Model.Image = string.Empty;
+            var imageUrl = await SaveImageAsync();
+            if (imageUrl is null)
+                return;
+
+            Model.Image = imageUrl;
             var result = await RoomTypeService.CreateRoomTypeAsync(Model, userId);
             if (result.IsSuccess)
             {
