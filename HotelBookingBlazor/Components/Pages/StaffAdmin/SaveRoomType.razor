@@ -14,7 +14,6 @@
     <hr />
     <EditForm Model="Model" OnValidSubmit="SaveRoomTypeAsync">
         <DataAnnotationsValidator />
-
         <div class="row">
             <div class="col-sm-6">
                 <div class="mb-3">
@@ -22,15 +21,6 @@
                     <InputText @bind-Value="Model.Name" class="form-control" placeholder="Room type name"></InputText>
                     <ValidationMessage For="() => Model.Name" class="text-danger"></ValidationMessage>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="mb-3">
-                    <label class="form-label">Image: </label>
-                    <InputFile @bind-Value="Model.ImageFile" class="form-control"></InputFile>
-                    <ValidationMessage For="() => Model.ImageFile" class="text-danger"></ValidationMessage>
-                </div>
-            </div>
-            <div class="col-sm-6">
                 <div class="mb-3">
                     <label class="form-label">Price: </label>
                     <InputNumber @bind-Value="Model.Price" class="form-control" placeholder="Price"></InputNumber>
@@ -46,18 +36,28 @@
                     <InputNumber @bind-Value="Model.MaxChildren" class="form-control" placeholder="Max Children"></InputNumber>
                     <ValidationMessage For="() => Model.MaxChildren" class="text-danger"></ValidationMessage>
                 </div>
-            </div>
-            <div class="col-sm-6">
                 <div class="mb-3">
                     <label class="form-label">Description: </label>
                     <InputTextArea @bind-Value="Model.Description" class="form-control" placeholder="Description" rows="5"></InputTextArea>
                     <ValidationMessage For="() => Model.Description" class="text-danger"></ValidationMessage>
                 </div>
             </div>
+
+            <div class="col-sm-6">
+                @if (!string.IsNullOrWhiteSpace(_imageUrl))
+                {
+                    <img str="@_imageUrl" class="img-fluid" />
+                }
+                <div class="mb-3">
+                    <label class="form-label">Image: </label>
+                    <InputFile OnChange="OnImageSelectAsync" class="form-control"></InputFile>
+                </div>
+            </div>
+
             <div class="col-sm-12 d-flex justify-content-between">
                 @foreach (var a in _amenities)
                 {
-                    <div>
+                    <div class="mb-3">
                         <label>
                             <InputCheckbox @bind-Value="a.IsChecked">
 
@@ -90,11 +90,25 @@
     private AmenitySelectionModel[] _amenities = [];
     private string? _errorMessage = null;
 
+    private string? _imageUrl = null;
+
     protected override async Task OnInitializedAsync()
     {
         var amenities = await AmenityService.GetAmenitiesAsync();
         _amenities = amenities.Select(a => new AmenitySelectionModel(a.Id, a.Name, false, null))
                                 .ToArray();
+    }
+
+    private async Task OnImageSelectAsync(InputFileChangeEventArgs e)
+    {
+        using var imageStream = e.File.OpenReadStream();
+        using var ms = new MemoryStream();
+        await imageStream.CopyToAsync(ms);
+
+        var base64ImageData = Convert.ToBase64String(ms.ToArray());
+        var extension = Path.GetExtension(e.File.Name)[1..];
+
+        _imageUrl = $"data:image/{extension};base64,{base64ImageData}";
     }
 
     private async Task SaveRoomTypeAsync()
@@ -127,7 +141,7 @@
             }
             _errorMessage = result.ErrorMessage ?? "Error in saving room type";
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _errorMessage = ex.Message;
         }

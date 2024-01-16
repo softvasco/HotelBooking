@@ -31,7 +31,7 @@ public class RoomType
     public string AddedBy { get; set; }
 
     public DateTime? LastUpdatedOn { get; set; }
-    public string LastUpdatedBy { get; set; }
+    public string? LastUpdatedBy { get; set; }
 
     [ForeignKey(nameof(AddedBy))]
     public virtual ApplicationUser AddedByUser { get; set; }
