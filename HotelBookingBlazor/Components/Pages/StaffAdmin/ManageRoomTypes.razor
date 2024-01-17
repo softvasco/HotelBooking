@@ -1,7 +1,49 @@
 ﻿@page "/staff-admin/manage-room-types"
 
+@inject IRoomTypeService RoomTypeService
 
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="m-0">Manage Room Types</h1>
+        <NavLink href="staff-admin/manage-room-types/new" class="btn btn-sm btn-primary">+ Add new Room Type</NavLink>
+    </div>
+    <hr />
+    <div class="row">
+        @if (_roomTypes.Length == 0)
+        {
+            <p>There is no room type created yet</p>
+        }
+        else
+        {
+            @foreach (var rt in _roomTypes)
+            {
+                var editLink = $"/staff-admin/manage-room-types/{rt.Id}/edit";
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="m-0">@rt.Name</h6>
+                            <NavLink href="@editLink" class="btn btn-sm btn-default">
+                                <i class="fa fa-edit"></i>
+                            </NavLink>
+                        </div>
+                        <div class="card-body">
+                            <img src="@rt.Image" class="img-fluid" />
+                        </div>
+                        <div class="card-footer">
+                            <h6>@rt.Price.ToString("c")/night</h6>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
 
 @code {
+    private RoomTypeListModel[] _roomTypes = [];
 
+    protected override async Task OnInitializedAsync()
+    {
+        _roomTypes = await RoomTypeService.GetRoomTypesForManagePageAsync();
+    }
 }

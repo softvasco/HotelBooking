@@ -74,7 +74,7 @@
 
                                         <AuthorizeView Roles="Staff,Admin" Context="staffAdminContext">
                                             <NavLink href="booking" class="dropdown-item">Manage Bookings</NavLink>
-                                            <NavLink href="staff-admin/manage-room-types" class="dropdown-item">Manage Rooms</NavLink>
+                                            <NavLink href="staff-admin/manage-room-types" Match="NavLinkMatch.All" class="dropdown-item">Manage Rooms</NavLink>
                                             <NavLink href="staff-admin/manage-room-types/new" class="dropdown-item">+ Add Room Type</NavLink>
                                             <NavLink href="staff-admin/manage-amenities" class="dropdown-item">Manage Amenities</NavLink>
                                         </AuthorizeView>

@@ -52,4 +52,13 @@ public class RoomTypeService : IRoomTypeService
 
         return roomType.Id;
     }
+
+    public async Task<RoomTypeListModel[]> GetRoomTypesForManagePageAsync()
+    {
+        using var context = _contextFactory.CreateDbContext();
+        return await context.RoomTypes
+            .Select(r => new RoomTypeListModel(r.Id, r.Name, r.Image, r.Price))
+            .ToArrayAsync();
+    }
+
 }
