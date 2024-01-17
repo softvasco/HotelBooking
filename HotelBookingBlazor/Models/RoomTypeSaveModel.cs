@@ -2,7 +2,7 @@
 
 namespace HotelBookingBlazor.Models;
 
-public class RoomTypeCreateModel
+public class RoomTypeSaveModel
 {
     public short Id { get; set; }
 
@@ -26,13 +26,13 @@ public class RoomTypeCreateModel
 
     public bool IsActive { get; set; }
 
-    public RoomTypeAmenityCreateModel[] Amenities { get; set; } = [];
+    public RoomTypeAmenitySaveModel[] Amenities { get; set; } = [];
 
-    public class RoomTypeAmenityCreateModel
+    public class RoomTypeAmenitySaveModel
     {
         public int Id { get; set; }
         public int? Unit { get; set; }
 
-        public RoomTypeAmenityCreateModel(int id, int? unit) => (Id, Unit) = (id, unit);
+        public RoomTypeAmenitySaveModel(int id, int? unit) => (Id, Unit) = (id, unit);
     }
 }

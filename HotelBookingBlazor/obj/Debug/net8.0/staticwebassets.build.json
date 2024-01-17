@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Z2niT1VNJ7hVPHQlTJhOzmXoMU04ZlH8RWz7iZ+h1FQ=",
+  "Hash": "DUAQpUAz68LTpD1fxC3let9A9mLIGOwlwYUesrvQKak=",
   "Source": "HotelBookingBlazor",
   "BasePath": "_content/HotelBookingBlazor",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\images\\room-types\\room-type-img-165421dd-07a9-4163-9d92-3996b35b7002.png",
+      "SourceId": "HotelBookingBlazor",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\",
+      "BasePath": "_content/HotelBookingBlazor",
+      "RelativePath": "images/room-types/room-type-img-165421dd-07a9-4163-9d92-3996b35b7002.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\room-types\\room-type-img-165421dd-07a9-4163-9d92-3996b35b7002.png"
     },
     {
       "Identity": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\images\\room-types\\room-type-img-2627b746-db6a-4ca3-abaf-14c40c5f57ed.png",
