@@ -17,8 +17,16 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\images\\room-types\\room-type-img-2627b746-db6a-4ca3-abaf-14c40c5f57ed.png",
+      "PackagePath": "staticwebassets\\images\\room-types\\room-type-img-2627b746-db6a-4ca3-abaf-14c40c5f57ed.png"
+    },
+    {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\images\\room-types\\room-type-img-3573d9b7-8b83-46a0-971c-220cd303d34c.png",
       "PackagePath": "staticwebassets\\images\\room-types\\room-type-img-3573d9b7-8b83-46a0-971c-220cd303d34c.png"
+    },
+    {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\images\\room-types\\room-type-img-cc91e036-085b-46cd-a0db-5044dda62c41.png",
+      "PackagePath": "staticwebassets\\images\\room-types\\room-type-img-cc91e036-085b-46cd-a0db-5044dda62c41.png"
     },
     {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\img\\about-1.jpg",

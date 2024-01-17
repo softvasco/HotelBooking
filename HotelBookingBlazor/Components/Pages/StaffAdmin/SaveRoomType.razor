@@ -45,13 +45,17 @@
             </div>
 
             <div class="col-sm-6">
-                @if (!string.IsNullOrWhiteSpace(_imageUrl))
-                {
-                    <img src="@_imageUrl" class="img-fluid"/>
-                }
-                <div class="mb-3">
-                    <label class="form-label">Image: </label>
-                    <InputFile OnChange="OnImageSelectAsync" class="form-control"></InputFile>
+                <div class="d-flex flex-column" style="height:100%">
+                    <div class="img-wrapper flex-grow-1">
+                        @if (!string.IsNullOrWhiteSpace(_imageUrl))
+                        {
+                            <img src="@_imageUrl" class="img-fluid" />
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Image: </label>
+                        <InputFile OnChange="OnImageSelectAsync" class="form-control"></InputFile>
+                    </div>
                 </div>
             </div>
 
@@ -60,7 +64,7 @@
                 {
                     <div class="mb-3">
                         <label>
-                            <InputCheckbox @bind-Value="a.IsChecked"/>
+                            <InputCheckbox @bind-Value="a.IsChecked" />
                             <span>@a.Name</span>
                             <InputNumber @bind-Value="a.Unit" class="form-control form-control-sm" placeholder="Unit value"></InputNumber>
                         </label>
@@ -111,7 +115,7 @@
         var base64ImageData = Convert.ToBase64String(ms.ToArray());
         var extension = Path.GetExtension(e.File.Name)[1..];
 
-        _imageUrl = $"data:image/{extension};base64,{base64ImageData}";
+        _imageUrl = $"data:images/{extension};base64,{base64ImageData}";
         _image = e.File;
     }
 
@@ -130,7 +134,7 @@
             await using FileStream fs = new(fullFilePath, FileMode.Create);
             using var imageStream = _image.OpenReadStream();
             await imageStream.CopyToAsync(fs);
-            return $"/image/room-types/{imageName}";
+            return $"/images/room-types/{imageName}";
         }
         catch (Exception ex)
         {
