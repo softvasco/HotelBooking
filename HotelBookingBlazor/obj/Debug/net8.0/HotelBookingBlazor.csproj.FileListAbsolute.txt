@@ -118,6 +118,7 @@ D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingB
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.AssemblyInfo.cs
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.csproj.CoreCompileInputs.cache
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.MvcApplicationPartsAssemblyInfo.cache
+D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.sourcelink.json
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\staticwebassets.build.json
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\staticwebassets.development.json
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\staticwebassets\msbuild.HotelBookingBlazor.Microsoft.AspNetCore.StaticWebAssets.props
@@ -135,4 +136,3 @@ D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\refint\HotelB
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.pdb
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.genruntimeconfig.cache
 D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\ref\HotelBookingBlazor.dll
-D:\Projetos\HotelBookingBlazor\HotelBookingBlazor\obj\Debug\net8.0\HotelBookingBlazor.sourcelink.json

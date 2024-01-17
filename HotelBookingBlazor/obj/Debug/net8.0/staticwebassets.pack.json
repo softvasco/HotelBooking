@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\images\\room-types\\room-type-img-92216b41-10e0-4be8-a6c2-f51a415d1f75.png",
+      "PackagePath": "staticwebassets\\images\\room-types\\room-type-img-92216b41-10e0-4be8-a6c2-f51a415d1f75.png"
+    },
+    {
       "Id": "D:\\Projetos\\HotelBookingBlazor\\HotelBookingBlazor\\wwwroot\\img\\about-1.jpg",
       "PackagePath": "staticwebassets\\img\\about-1.jpg"
     },
